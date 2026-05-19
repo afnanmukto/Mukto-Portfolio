@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false)
@@ -14,28 +15,41 @@ export default function Contact() {
 
   return (
     <section className="section content-section contact-section" id="contact">
-      <div className="section-heading reveal">
+      <motion.div
+        className="section-heading"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+      >
         <p className="eyebrow">Contact</p>
-        <h2>Start a conversation.</h2>
-      </div>
+        <h2>Initiate Protocol.</h2>
+      </motion.div>
 
-      <form className="contact-form glass reveal" onSubmit={handleSubmit}>
+      <motion.form
+        className="contact-form glass"
+        onSubmit={handleSubmit}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
         <label>
-          <span>Name</span>
-          <input type="text" name="name" placeholder="Your name" required />
+          <span>Name / Organization</span>
+          <input type="text" name="name" placeholder="John Doe / Acme Corp" required />
         </label>
         <label>
-          <span>Email</span>
-          <input type="email" name="email" placeholder="you@example.com" required />
+          <span>Email Transponder</span>
+          <input type="email" name="email" placeholder="systems@example.com" required />
         </label>
         <label>
-          <span>Message</span>
-          <textarea name="message" rows={5} placeholder="Write your message" required></textarea>
+          <span>Transmission Details</span>
+          <textarea name="message" rows={5} placeholder="Describe the problem space..." required></textarea>
         </label>
         <button className="submit-button" type="submit">
-          {submitted ? 'Message Sent' : 'Send Message'}
+          {submitted ? 'Transmission Sent' : 'Send Transmission'}
         </button>
-      </form>
+      </motion.form>
     </section>
   )
 }
