@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+
 
 const items = [
   {
@@ -149,22 +151,47 @@ export default function Gallery() {
   return (
     <>
       <section className="section content-section" id="gallery">
-        <div className="section-heading reveal">
-          <p className="eyebrow">Gallery</p>
+        <motion.div
+          className="section-heading"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="eyebrow" style={{ color: '#4ade80' }}>Gallery</p>
           <h2>Selected moments with cinematic depth.</h2>
-        </div>
+        </motion.div>
 
         <div className="story-flow">
-          {items.map((item) => (
-            <div
+          {items.map((item, index) => (
+            <motion.div
               key={item.src}
-              className={`story-item reveal${item.size ? ` ${item.size}` : ''}`}
+              className={`story-item${item.size ? ` ${item.size}` : ''}`}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: index % 2 === 0 ? 0.1 : 0.2 }}
+              whileHover={{ scale: 1.02 }}
             >
               <button
-                className="gallery-item"
+                className="gallery-item glass"
                 type="button"
                 aria-label={item.label}
                 onClick={() => openLightbox(item.src, item.alt)}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'border-color 0.3s ease, box-shadow 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#4ade80';
+                  e.currentTarget.style.boxShadow = '0 0 20px #4ade80, inset 0 0 10px #4ade80';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.boxShadow = '0 22px 70px rgba(0, 0, 0, 0.34)';
+                }}
               >
                 <img src={item.src} alt={item.alt} />
               </button>
@@ -172,7 +199,7 @@ export default function Gallery() {
                 <p className="story-caption-bold">{item.bold}</p>
                 <p className="story-caption-small">{item.small}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>

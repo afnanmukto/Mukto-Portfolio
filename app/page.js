@@ -5,13 +5,13 @@ import Gallery from '@/components/Gallery'
 import Social from '@/components/Social'
 import Contact from '@/components/Contact'
 import Cursor from '@/components/Cursor'
-import ScrollEffects from '@/components/ScrollEffects'
+import SpaceBackground from '@/components/SpaceBackground'
 
 export default function Home() {
   return (
     <>
+      <SpaceBackground />
       <Cursor />
-      <ScrollEffects />
       <div className="site-glow glow-one" aria-hidden="true"></div>
       <div className="site-glow glow-two" aria-hidden="true"></div>
       <Header />
