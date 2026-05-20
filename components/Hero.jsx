@@ -1,85 +1,80 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
 export default function Hero() {
+  const headingText = "Navigator of the Digital Cosmos";
+  const subtitleText = "Transforming ideas into interactive 3D realities.";
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
-  }
+        staggerChildren: 0.05,
+      },
+    },
+  };
 
   const charVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-  }
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: 'spring',
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+  };
 
-  const name = "MUKTO"
-  const subtitle = "Navigator of the Digital Cosmos"
+  const fadeUpVariant = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 1.5 } },
+  };
 
   return (
-    <section className="hero section" id="hero" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', position: 'relative' }}>
+    <section id="home" className="min-h-screen flex items-center justify-center flex-col text-center px-4 pt-20">
       <motion.div
-        className="hero-side-note"
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
-      >
-        <span>Dreamer</span>
-        <span>Designer &amp; Developer</span>
-      </motion.div>
-
-      <motion.div
-        className="hero-name-back"
-        aria-hidden="true"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        style={{ display: 'flex', overflow: 'hidden' }}
-      >
-        {name.split('').map((char, index) => (
-          <motion.span key={index} variants={charVariants}>
-            {char}
-          </motion.span>
-        ))}
-      </motion.div>
-
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        style={{ marginTop: '20px', zIndex: 2, display: 'flex' }}
-      >
-         {subtitle.split(' ').map((word, index) => (
-          <motion.span key={index} variants={charVariants} style={{ marginRight: '8px', color: '#9CA3AF', fontSize: '1.2rem', fontWeight: 500, letterSpacing: '0.05em' }}>
-            {word}
-          </motion.span>
-        ))}
-      </motion.div>
-
-      <motion.div
-        className="hero-portrait-wrap"
+        className="glass-panel max-w-4xl w-full flex flex-col items-center justify-center p-12"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 1 }}
+        transition={{ duration: 1 }}
+        whileHover={{ scale: 1.02 }}
       >
-        <img src="/Images/hero-mukto-trimmed.png" alt="Portrait of WASIF AFNAN MUKTO" />
-      </motion.div>
+        <motion.h1
+          className="text-5xl md:text-7xl font-bold mb-6 tracking-tight"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {headingText.split('').map((char, index) => (
+            <motion.span key={index} variants={charVariants} className="inline-block">
+              {char === ' ' ? '\u00A0' : char}
+            </motion.span>
+          ))}
+        </motion.h1>
 
-      <motion.a
-        className="scroll-cue"
-        href="#about"
-        aria-label="Scroll to About section"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.5 }}
-      >
-        <span>Scroll down</span>
-      </motion.a>
+        <motion.p
+          className="text-xl md:text-2xl text-gray-400 mb-8 max-w-2xl"
+          variants={fadeUpVariant}
+          initial="hidden"
+          animate="visible"
+        >
+          {subtitleText}
+        </motion.p>
+
+        <motion.div
+           variants={fadeUpVariant}
+           initial="hidden"
+           animate="visible"
+        >
+           <a href="#about" className="inline-block px-8 py-4 bg-[#4ade80]/10 text-[#4ade80] border border-[#4ade80]/30 rounded-full font-medium hover:bg-[#4ade80]/20 hover:border-[#4ade80]/60 hover:shadow-[0_0_15px_rgba(74,222,128,0.4)] transition-all duration-300">
+             Initiate Sequence
+           </a>
+        </motion.div>
+      </motion.div>
     </section>
-  )
+  );
 }
